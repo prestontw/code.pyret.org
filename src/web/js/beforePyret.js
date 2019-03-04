@@ -208,6 +208,9 @@ $(function() {
     cmOptions = merge(cmOptions, options.cmOptions || {});
 
     var CM = CodeMirror.fromTextArea(textarea[0], cmOptions);
+    // adding from readme
+    let blocks = new CodeMirrorBlocks(CM, new MyParser());
+    blocks.setBlockMode(true);
 
     if (useLineNumbers) {
       CM.display.wrapper.appendChild(mkWarningUpper()[0]);
