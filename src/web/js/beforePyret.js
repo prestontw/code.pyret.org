@@ -208,9 +208,9 @@ $(function() {
     cmOptions = merge(cmOptions, options.cmOptions || {});
 
     var CM = CodeMirror.fromTextArea(textarea[0], cmOptions);
-    // adding from readme
-    let blocks = new CodeMirrorBlocks(CM, new MyParser());
+    let blocks = new CodeMirrorBlocks(CM);
     blocks.setBlockMode(true);
+    // adding from readme, using wescheme parser for now
 
     if (useLineNumbers) {
       CM.display.wrapper.appendChild(mkWarningUpper()[0]);
@@ -220,12 +220,12 @@ $(function() {
     getTopTierMenuitems();
 
     return {
-      cm: CM,
-      refresh: function() { CM.refresh(); },
+      cm: blocks,
+      refresh: function() { blocks.refresh(); },
       run: function() {
-        runFun(CM.getValue());
+        runFun(blocks.getValue());
       },
-      focus: function() { CM.focus(); },
+      focus: function() { blocks.focus(); },
       focusCarousel: null //initFocusCarousel
     };
   };
