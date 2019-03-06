@@ -149,7 +149,7 @@ $(function() {
     container.append(textarea);
 
     var runFun = function (code, replOptions) {
-      options.run(code, {cm: CM}, replOptions);
+      options.run(code, {cm: blocks}, replOptions);
     };
 
     var useLineNumbers = !options.simpleEditor;
@@ -207,14 +207,13 @@ $(function() {
 
     cmOptions = merge(cmOptions, options.cmOptions || {});
 
-    var CM = CodeMirror.fromTextArea(textarea[0], cmOptions);
     // adding from readme, using wescheme parser for now
-    let blocks = new CodeMirrorBlocks(CM);
-    blocks.setBlockMode(true);
+    let blocks = new CodeMirrorBlocks(container[0], options = cmOptions);
+    // blocks.setBlockMode(true);
 
     if (useLineNumbers) {
-      CM.display.wrapper.appendChild(mkWarningUpper()[0]);
-      CM.display.wrapper.appendChild(mkWarningLower()[0]);
+      // blocks.display.wrapper.appendChild(mkWarningUpper()[0]);
+      // blocks.display.wrapper.appendChild(mkWarningLower()[0]);
     }
 
     getTopTierMenuitems();
