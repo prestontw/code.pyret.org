@@ -902,6 +902,7 @@
         doneRendering.fin(afterRun(CM));
       };
 
+      // this is where we make a repl?
       var CM = CPO.makeEditor(prompt, {
         simpleEditor: true,
         run: runner,

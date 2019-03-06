@@ -209,9 +209,10 @@ $(function() {
 
     // adding from readme, using wescheme parser for now
     let blocks = new CodeMirrorBlocks(container[0], options = cmOptions);
-    // blocks.setBlockMode(true);
+    blocks.setBlockMode(true);
 
     if (useLineNumbers) {
+      // need to figure out how to replicate this here...
       // blocks.display.wrapper.appendChild(mkWarningUpper()[0]);
       // blocks.display.wrapper.appendChild(mkWarningLower()[0]);
     }
