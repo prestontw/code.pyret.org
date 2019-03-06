@@ -70,7 +70,8 @@
     "url-loader": "^0.6.2",
     "url.js": "^1.0.2",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "wescheme-js": "github:bootstrapworld/wescheme-js"
   },
   "scripts": {
     "local-install": "heroku local:run npm install",
