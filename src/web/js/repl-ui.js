@@ -903,7 +903,7 @@
       };
 
       // this is where we make a repl?
-      var CM = CPO.makeEditor(prompt, {
+      var CM = CPO.makeREPL(prompt, {
         simpleEditor: true,
         run: runner,
         initial: "",

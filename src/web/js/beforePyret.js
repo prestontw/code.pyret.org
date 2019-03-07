@@ -138,7 +138,7 @@ $(function() {
       animationDiv = null;
     }
   }
-  CPO.makeEditor = function(container, options) {
+  CPO.makeEditor = function (container, options) {
     var initial = "";
     if (options.hasOwnProperty("initial")) {
       initial = options.initial;
@@ -226,6 +226,95 @@ $(function() {
         runFun(blocks.getValue());
       },
       focus: function() { blocks.focus(); },
+      focusCarousel: null //initFocusCarousel
+    };
+  };
+  CPO.makeREPL = function(container, options) {
+    var initial = "";
+    if (options.hasOwnProperty("initial")) {
+      initial = options.initial;
+    }
+
+    var textarea = jQuery("<textarea aria-hidden='true'>");
+    textarea.val(initial);
+    container.append(textarea);
+
+    var runFun = function (code, replOptions) {
+      options.run(code, {cm: CM}, replOptions);
+    };
+
+    var useLineNumbers = !options.simpleEditor;
+    var useFolding = !options.simpleEditor;
+
+    var gutters = !options.simpleEditor ?
+      ["CodeMirror-linenumbers", "CodeMirror-foldgutter"] :
+      [];
+
+    function reindentAllLines(cm) {
+      var last = cm.lineCount();
+      cm.operation(function() {
+        for (var i = 0; i < last; ++i) cm.indentLine(i);
+      });
+    }
+
+    // place a vertical line at character 80 in code editor, and not repl
+    var CODE_LINE_WIDTH = 100;
+
+    var rulers, rulersMinCol;
+    if (options.simpleEditor) {
+      rulers = [];
+    } else{
+      rulers = [{color: "#317BCF", column: CODE_LINE_WIDTH, lineStyle: "dashed", className: "hidden"}];
+      rulersMinCol = CODE_LINE_WIDTH;
+    }
+
+    var cmOptions = {
+      extraKeys: CodeMirror.normalizeKeyMap({
+        "Shift-Enter": function(cm) { runFun(cm.getValue()); },
+        "Shift-Ctrl-Enter": function(cm) { runFun(cm.getValue()); },
+        "Tab": "indentAuto",
+        "Ctrl-I": reindentAllLines,
+        "Esc Left": "goBackwardSexp",
+        "Alt-Left": "goBackwardSexp",
+        "Esc Right": "goForwardSexp",
+        "Alt-Right": "goForwardSexp",
+        "Ctrl-Left": "goBackwardToken",
+        "Ctrl-Right": "goForwardToken"
+      }),
+      indentUnit: 2,
+      tabSize: 2,
+      viewportMargin: Infinity,
+      lineNumbers: useLineNumbers,
+      matchKeywords: true,
+      matchBrackets: true,
+      styleSelectedText: true,
+      foldGutter: useFolding,
+      gutters: gutters,
+      lineWrapping: true,
+      logging: true,
+      rulers: rulers,
+      rulersMinCol: rulersMinCol
+    };
+
+    cmOptions = merge(cmOptions, options.cmOptions || {});
+
+    // adding from readme, using wescheme parser for now
+    var CM = CodeMirror.fromTextArea(textarea[0], cmOptions);
+
+    if (useLineNumbers) {
+      CM.display.wrapper.appendChild(mkWarningUpper()[0]);
+      CM.display.wrapper.appendChild(mkWarningLower()[0]);
+    }
+
+    getTopTierMenuitems();
+
+    return {
+      cm: CM,
+      refresh: function() { CM.refresh(); },
+      run: function() {
+        runFun(CM.getValue());
+      },
+      focus: function() { CM.focus(); },
       focusCarousel: null //initFocusCarousel
     };
   };
