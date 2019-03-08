@@ -11,7 +11,7 @@ if (process.env.GOOGLE_CHROME_BINARY) {
 }
 else {
   console.log("The tester is guessing that you're on a Mac :-) You can set GOOGLE_CHROME_BINARY to the path to your Chrome install if this path isn't for your machine work");
-  PATH_TO_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  PATH_TO_CHROME = '/usr/bin/google-chrome';
 }
 
 let leave_open = process.env.LEAVE_OPEN === "true" || false;
