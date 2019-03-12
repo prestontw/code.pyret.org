@@ -138,15 +138,11 @@ $(function() {
       animationDiv = null;
     }
   }
-  CPO.makeEditor = function (container, options) {
+  let makeEditorPane = function (container, options, constructor, create_textarea = true, after_create) {
     var initial = "";
     if (options.hasOwnProperty("initial")) {
       initial = options.initial;
     }
-
-    var textarea = jQuery("<textarea aria-hidden='true'>");
-    textarea.val(initial);
-    container.append(textarea);
 
     var runFun = function (code, replOptions) {
       options.run(code, {cm: blocks}, replOptions);
@@ -207,99 +203,16 @@ $(function() {
 
     cmOptions = merge(cmOptions, options.cmOptions || {});
 
-    // adding from readme, using wescheme parser for now
-    let blocks = new CodeMirrorBlocks(container[0], options = cmOptions);
-    blocks.setBlockMode(false);
-
-    if (useLineNumbers) {
-      // need to figure out how to replicate this here...
-      // blocks.display.wrapper.appendChild(mkWarningUpper()[0]);
-      // blocks.display.wrapper.appendChild(mkWarningLower()[0]);
+    var textarea = undefined;
+    if (create_textarea) {
+      textarea = jQuery("<textarea aria-hidden='true'>");
+      textarea.val(initial);
+      container.append(textarea);
     }
 
-    getTopTierMenuitems();
-
-    return {
-      cm: blocks,
-      refresh: function() { blocks.refresh(); },
-      run: function() {
-        runFun(blocks.getValue());
-      },
-      focus: function() { blocks.focus(); },
-      focusCarousel: null //initFocusCarousel
-    };
-  };
-  CPO.makeREPL = function(container, options) {
-    var initial = "";
-    if (options.hasOwnProperty("initial")) {
-      initial = options.initial;
-    }
-
-    var textarea = jQuery("<textarea aria-hidden='true'>");
-    textarea.val(initial);
-    container.append(textarea);
-
-    var runFun = function (code, replOptions) {
-      options.run(code, {cm: CM}, replOptions);
-    };
-
-    var useLineNumbers = !options.simpleEditor;
-    var useFolding = !options.simpleEditor;
-
-    var gutters = !options.simpleEditor ?
-      ["CodeMirror-linenumbers", "CodeMirror-foldgutter"] :
-      [];
-
-    function reindentAllLines(cm) {
-      var last = cm.lineCount();
-      cm.operation(function() {
-        for (var i = 0; i < last; ++i) cm.indentLine(i);
-      });
-    }
-
-    // place a vertical line at character 80 in code editor, and not repl
-    var CODE_LINE_WIDTH = 100;
-
-    var rulers, rulersMinCol;
-    if (options.simpleEditor) {
-      rulers = [];
-    } else{
-      rulers = [{color: "#317BCF", column: CODE_LINE_WIDTH, lineStyle: "dashed", className: "hidden"}];
-      rulersMinCol = CODE_LINE_WIDTH;
-    }
-
-    var cmOptions = {
-      extraKeys: CodeMirror.normalizeKeyMap({
-        "Shift-Enter": function(cm) { runFun(cm.getValue()); },
-        "Shift-Ctrl-Enter": function(cm) { runFun(cm.getValue()); },
-        "Tab": "indentAuto",
-        "Ctrl-I": reindentAllLines,
-        "Esc Left": "goBackwardSexp",
-        "Alt-Left": "goBackwardSexp",
-        "Esc Right": "goForwardSexp",
-        "Alt-Right": "goForwardSexp",
-        "Ctrl-Left": "goBackwardToken",
-        "Ctrl-Right": "goForwardToken"
-      }),
-      indentUnit: 2,
-      tabSize: 2,
-      viewportMargin: Infinity,
-      lineNumbers: useLineNumbers,
-      matchKeywords: true,
-      matchBrackets: true,
-      styleSelectedText: true,
-      foldGutter: useFolding,
-      gutters: gutters,
-      lineWrapping: true,
-      logging: true,
-      rulers: rulers,
-      rulersMinCol: rulersMinCol
-    };
-
-    cmOptions = merge(cmOptions, options.cmOptions || {});
-
-    // adding from readme, using wescheme parser for now
-    var CM = CodeMirror.fromTextArea(textarea[0], cmOptions);
+    let CM = constructor((create_textarea)? textarea[0] : container[0], cmOptions);
+    if (after_create != null)
+      after_create(CM);
 
     if (useLineNumbers) {
       CM.display.wrapper.appendChild(mkWarningUpper()[0]);
@@ -317,6 +230,13 @@ $(function() {
       focus: function() { CM.focus(); },
       focusCarousel: null //initFocusCarousel
     };
+
+  }
+  CPO.makeEditor = function (container, options) {
+    return makeEditorPane(container, options, (container, options) => new CodeMirrorBlocks(container, options), false, blocks => blocks.setBlockMode(false));
+  };
+  CPO.makeREPL = function (container, options) {
+    return makeEditorPane(container, options, (ta, options) => CodeMirror.fromTextArea(ta, options), true, undefined);
   };
   CPO.RUN_CODE = function() {
     console.log("Running before ready", arguments);
