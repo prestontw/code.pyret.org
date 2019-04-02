@@ -233,7 +233,8 @@ $(function() {
 
   }
   CPO.makeEditor = function (container, options) {
-    return makeEditorPane(container, options, (container, options) => new CodeMirrorBlocks(container, options), false, blocks => blocks.setBlockMode(true));
+    console.log(CodeMirrorBlocks);
+    return makeEditorPane(container, options, (container, options) => new CodeMirrorBlocks.default(container, options, CodeMirrorBlocks.languages.LANGUAGES.pyret), false, blocks => blocks.setBlockMode(true));
   };
   CPO.makeREPL = function (container, options) {
     return makeEditorPane(container, options, (ta, options) => CodeMirror.fromTextArea(ta, options), true, undefined);
