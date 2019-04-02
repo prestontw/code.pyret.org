@@ -1,4 +1,4 @@
-/* global $ jQuery CPO CodeMirror CodeMirrorBlocks storageAPI Q createProgramCollectionAPI makeShareAPI */
+/* global $ jQuery CPO CodeMirror CodeMirrorBlocks PyretLanguage storageAPI Q createProgramCollectionAPI makeShareAPI */
 
 var shareAPI = makeShareAPI(process.env.CURRENT_PYRET_RELEASE);
 
@@ -234,7 +234,13 @@ $(function() {
   }
   CPO.makeEditor = function (container, options) {
     console.log(CodeMirrorBlocks);
-    return makeEditorPane(container, options, (container, options) => new CodeMirrorBlocks.default(container, options, CodeMirrorBlocks.languages.LANGUAGES.pyret), false, blocks => blocks.setBlockMode(true));
+    // is this a class?
+    console.log(PyretLanguage);
+    return makeEditorPane(container,
+      options,
+      (container, options) => new CodeMirrorBlocks(container, options, PyretLanguage),
+      false,
+      blocks => blocks.setBlockMode(true));
   };
   CPO.makeREPL = function (container, options) {
     return makeEditorPane(container, options, (ta, options) => CodeMirror.fromTextArea(ta, options), true, undefined);

@@ -124,6 +124,9 @@ build/web/js/codemirror.js: $(CM)/lib/codemirror.js
 build/web/js/CodeMirrorBlocks.js: node_modules/codemirror-blocks/dist/CodeMirrorBlocks-min.js
 	cp $< $@
 
+build/web/js/PyretLanguage.js: node_modules/codemirror-blocks/dist/PyretLanguage-min.js
+	cp $< $@
+
 build/web/js/rulers.js: $(CM)/addon/display/rulers.js
 	cp $< $@
 
@@ -157,6 +160,7 @@ build/web/js/mousetrap-global-bind.min.js: node_modules/mousetrap/plugins/global
 MISC_JS = build/web/js/q.js build/web/js/url.js build/web/js/require.js \
           build/web/js/codemirror.js \
 					build/web/js/CodeMirrorBlocks.js \
+					build/web/js/PyretLanguage.js \
 					build/web/js/rulers.js \
           build/web/js/mark-selection.js \
           build/web/js/pyret-mode.js build/web/js/s-expression-lib.js \
