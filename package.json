@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A simple IDE for Pyret",
   "main": "index.js",
+  "engines": {
+    "npm": "3.x"
+  },
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^6.0.4",
