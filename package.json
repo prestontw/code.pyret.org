@@ -18,7 +18,7 @@
     "body-parser": "^1.15.2",
     "browserify": "^14.4.0",
     "codemirror": "~5.36.0",
-    "codemirror-blocks": "git://github.com/bootstrapworld/codemirror-blocks.git#ptw/integrate-with-cpo",
+    "codemirror-blocks": "^0.70",
     "colorspaces": "0.1.4",
     "cookie-parser": "^1.0.1",
     "cookie-session": "^1.0.1",
