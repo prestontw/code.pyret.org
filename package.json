@@ -79,6 +79,7 @@
     "test": "karma start --single-run",
     "test-watch": "karma start",
     "lint": "eslint src",
+    "build": "heroku local:run make web-local",
     "mocha": "heroku local:run mocha",
     "start": "heroku local:run supervisor --poll-interval 700 --watch src/run.js,src/server.js src/run.js & heroku local:run webpack-dev-server --port 5001 --watch"
   },
