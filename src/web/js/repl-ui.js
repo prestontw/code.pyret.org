@@ -972,7 +972,7 @@
 
     return runtime.makeJSModuleReturn({
       makeRepl: makeRepl,
-      makeEditor: CPO.makeRepl
+      makeEditor: CPO.makeREPL
     });
 
   }

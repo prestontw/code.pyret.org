@@ -321,13 +321,14 @@
 
       }
 
+      console.log("about to make repl");
       var replWidget =
           replUI.makeRepl(replContainer, repl, runtime, {
             breakButton: $("#breakButton"),
             runButton: runButton,
             runDropdown: $('#runDropdown')
           });
-
+      console.log(replWidget);
       // NOTE(joe): assigned on window for debuggability
       window.RUN_CODE = function(src, uiOpts, replOpts) {
         doRunAction(src);
