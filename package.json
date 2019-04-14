@@ -18,7 +18,7 @@
     "body-parser": "^1.15.2",
     "browserify": "^14.4.0",
     "codemirror": "~5.36.0",
-    "codemirror-blocks": "^0.70",
+    "codemirror-blocks": "git://github.com/bootstrapworld/codemirror-blocks.git#ptw/integrate-with-cpo",
     "colorspaces": "0.1.4",
     "cookie-parser": "^1.0.1",
     "cookie-session": "^1.0.1",
@@ -80,6 +80,7 @@
     "test-watch": "karma start",
     "lint": "eslint src",
     "build": "heroku local:run make web-local",
+    "heroku-postbuild": "",
     "mocha": "heroku local:run mocha",
     "start": "heroku local:run supervisor --poll-interval 700 --watch src/run.js,src/server.js src/run.js & heroku local:run webpack-dev-server --port 5001 --watch"
   },
