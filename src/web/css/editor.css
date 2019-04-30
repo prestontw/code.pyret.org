@@ -496,17 +496,26 @@ body {
 .replMain {
   position: absolute;
   z-index: 8500;
-  left: 0;
+  left: 0px;
   width: 50%;
-  top:0;
-  height: 100%;
-  max-height: 100%;
-  padding-top: 40px;
-  padding-bottom: 2.5em;
+  top: 40px;
+  bottom: 2.5em;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  margin:0;
+  margin: 0px;
+  padding: 0px;
   background: #f8f8f8;
+}
+
+.codemirror-pane>div, .react-codemirror2 {
+  height: 100%;
+}
+
+.toolbar-pane{
+  width: 25%;
+}
+.blocks .codemirror-pane{
+  width: 75% !important;
 }
 
 .replContainer {

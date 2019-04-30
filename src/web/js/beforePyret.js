@@ -188,7 +188,7 @@ $(function() {
       }),
       indentUnit: 2,
       tabSize: 2,
-      viewportMargin: Infinity,
+      viewportMargin: 20,
       lineNumbers: useLineNumbers,
       matchKeywords: true,
       matchBrackets: true,
@@ -746,7 +746,7 @@ $(function() {
     var docMain = document.getElementById('main');
     var docReplMain = docMain.getElementsByClassName('replMain');
     if (docReplMain.length !== 0) {
-      docReplMain[0].style.paddingTop = toolbarHeight;
+      //docReplMain[0].style.paddingTop = toolbarHeight;
     }
   }
 
