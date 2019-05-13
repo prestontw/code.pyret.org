@@ -238,7 +238,7 @@ $(function() {
     // console.log(PyretLanguage);
     return makeEditorPane(container,
       options,
-      (container, options) => new CodeMirrorBlocks(container, options /*, PyretLanguage */),
+      (container, options) => new CodeMirrorBlocks.CodeMirrorBlocks(container, options /*, PyretLanguage */),
       false,
       blocks => blocks.setBlockMode(true));
   };
