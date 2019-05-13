@@ -16,6 +16,7 @@
     "browserify": "^14.4.0",
     "codemirror": "~5.36.0",
     "codemirror-blocks": "git://github.com/bootstrapworld/codemirror-blocks.git#ptw/integrate-with-cpo",
+    "pyret-blocks": "git://github.com/bootstrapworld/pyret-blocks.git#ptw/merge-pyrets",
     "colorspaces": "0.1.4",
     "cookie-parser": "^1.0.1",
     "cookie-session": "^1.0.1",
