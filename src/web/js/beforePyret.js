@@ -234,12 +234,11 @@ $(function() {
   }
   CPO.makeEditor = function (container, options) {
     // console.log(CodeMirrorBlocks);
-    console.log(PyretLangBlocks);
     // is this a class?
     // console.log(PyretLanguage);
     return makeEditorPane(container,
       options,
-      (container, options) => new CodeMirrorBlocks.CodeMirrorBlocks(container, options, PyretLangBlocks.default),
+      PyretLangBlocks.default,
       false,
       blocks => blocks.setBlockMode(true));
   };
