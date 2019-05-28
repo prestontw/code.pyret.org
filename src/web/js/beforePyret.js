@@ -1,4 +1,4 @@
-/* global $ jQuery CPO CodeMirror CodeMirrorBlocks PyretLangBlocks storageAPI Q createProgramCollectionAPI makeShareAPI */
+/* global $ jQuery CPO CodeMirror PyretLangBlocks storageAPI Q createProgramCollectionAPI makeShareAPI */
 
 var shareAPI = makeShareAPI(process.env.CURRENT_PYRET_RELEASE);
 
